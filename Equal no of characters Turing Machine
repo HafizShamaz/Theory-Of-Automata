@@ -1,0 +1,37 @@
+name: Machine 1
+source code: |
+  input: ' aaabbbccc'
+  blank: ' '
+  start state: start
+  table:
+    start:
+      ' ': {write: ' ', R: q1}
+    q1:
+      a: {write: A, R: q2}
+      B: {write: B, R: q4}
+    q2:
+      [a]  : {R: q2}
+      [B]  : {R: q2}
+      b: {write: B, L: q3}
+    q3:
+      [a]  : {L: q3}
+      [B]  : {L: q3}
+      [A]  : {R: q1}
+    q4:
+      [B]  : {R: q4}
+      [C]  : {R: q4}
+      c: {write: C, L: q5}
+    q5:
+      [B]  : {L: q5}
+      [C]  : {L: q5}
+      [A]  : {R: q6}
+      [b]  : {R: q6}
+    q6:
+      [b]  : {R: q6}
+      B: {write: b, R: q7}
+    q7:
+      [B]  : {R: q7}
+      [C]  : {R: q7}
+      c: {write: C, L: q5}
+      [' ']  : {R: Done}
+    Done:
